@@ -1,17 +1,25 @@
-{
-  "name": "machinepack-twilio",
-
-  "description": "Interact with the Twilio API; buy numbers, release numbers, send messages, etc.",
-
-  "version": "0.0.1",
-
-  "keywords": [ "machinepack", "machines" ],
-
-  "dependencies": { 'machine': '^1.2.0' },
-
-  "machinepack": {
-    "friendlyName": "Twilio",
-    "machines": [],
-    "machineDir": "machines/"
-  }
+{  
+   "name":"machinepack-twilio",
+   "version":"0.0.1",
+   "description": "Interact with the Twilio API; buy numbers, release numbers, send messages, etc.",
+   "keywords": [
+      "machinepack",
+      "machines"
+   ],
+   "author":"Parker Agee",
+   "license":"MIT",
+   "dependencies":{  
+      "machine": "^1.2.0",
+      "twilio": "1.10.0"
+   },
+   "repository":{  
+      "type":"git",
+      "url":"https://github.com/parkeragee/machinepack-twilio"
+   },
+   "machinepack":{  
+      "machineDir":"machines",
+      "machines":[  
+        "send-message"
+      ]
+   }
 }
