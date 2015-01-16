@@ -2,17 +2,13 @@
 
 # machinepack-twilio
 
-Machines for the Twilio API.
+Machines for the Twilio API. Additional machines being developed soon.
 
 ### Installation
 
 ```sh
 $ npm install machinepack-twilio
 ```
-
-### Usage
-
-For the latest usage documentation and status of this module, see [http://node-machine.org/machinepack-twilio](http://node-machine.org/machinepack-twilio).
 
 ### About
 
