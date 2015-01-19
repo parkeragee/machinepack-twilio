@@ -46,7 +46,7 @@ module.exports = {
       void: true
     },
 
-    success: {     
+    success: {
       description: 'Message sent successfully',
       variableName: 'messageSent',
       example:  {
@@ -67,8 +67,8 @@ module.exports = {
         price_unit: 'USD',
         uri: '/2010-04-01/Accounts/Dafd4example5852c3c69bZe5e1e704a9102/Messages/SM25e3fada288945b3af03df87114f5db7.json',
         subresource_uris: { media: '/2010-04-01/Accounts/Dafd4example5852c3c69bZe5e1e704a9102/Messages/SM25e3fada288945b3af03df87114f5db7/Media.json' },
-        dateCreated: Fri Jan 16 2015 08:03:51 GMT-0600 (CST),
-        dateUpdated: Fri Jan 16 2015 08:03:51 GMT-0600 (CST),
+        dateCreated: 'Fri Jan 16 2015 08:03:51 GMT-0600 (CST)',
+        dateUpdated: 'Fri Jan 16 2015 08:03:51 GMT-0600 (CST)',
         dateSent: null,
         accountSid: 'Dafd4example5852c3c69bZe5e1e704a9102',
         numSegments: '1',
@@ -90,10 +90,9 @@ module.exports = {
         to: inputs.to,
         from: inputs.from,
     }, function(err, response) {
-      if(err) return exits.error(response);
+      if(err) return exits.error(err);
       return exits.success(response);
-    }
-
+    });
 
   }
 
