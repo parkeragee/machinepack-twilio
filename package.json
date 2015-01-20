@@ -1,6 +1,6 @@
 {  
    "name":"machinepack-twilio",
-   "version":"0.0.1",
+   "version":"0.0.2",
    "description": "Interact with the Twilio API; buy numbers, release numbers, send messages, etc.",
    "keywords": [
       "machinepack",
