@@ -51,31 +51,8 @@ module.exports = {
       variableName: 'messageSent',
       example:  {
         sid: 'SM25e3fada288945b3af03df87114f5db7',
-        date_created: 'Fri, 16 Jan 2015 14:03:51 +0000',
-        date_updated: 'Fri, 16 Jan 2015 14:03:51 +0000',
-        date_sent: null,
-        account_sid: 'Dafd4example5852c3c69bZe5e1e704a9102',
-        to: '+16155551234',
-        from: '+15005550006',
-        body: 'Test message',
         status: 'queued',
-        num_segments: '1',
-        num_media: '0',
-        direction: 'outbound-api',
-        api_version: '2010-04-01',
-        price: null,
-        price_unit: 'USD',
-        uri: '/2010-04-01/Accounts/Dafd4example5852c3c69bZe5e1e704a9102/Messages/SM25e3fada288945b3af03df87114f5db7.json',
-        subresource_uris: { media: '/2010-04-01/Accounts/Dafd4example5852c3c69bZe5e1e704a9102/Messages/SM25e3fada288945b3af03df87114f5db7/Media.json' },
-        dateCreated: 'Fri Jan 16 2015 08:03:51 GMT-0600 (CST)',
-        dateUpdated: 'Fri Jan 16 2015 08:03:51 GMT-0600 (CST)',
-        dateSent: null,
-        accountSid: 'Dafd4example5852c3c69bZe5e1e704a9102',
-        numSegments: '1',
-        numMedia: '0',
-        apiVersion: '2010-04-01',
-        priceUnit: 'USD',
-        subresourceUris: { media: '/2010-04-01/Accounts/Dafd4example5852c3c69bZe5e1e704a9102/Messages/SM25e3fada288945b3af03df87114f5db7/Media.json' }
+        uri: '/2010-04-01/Accounts/Dafd4example5852c3c69bZe5e1e704a9102/Messages/SM25e3fada288945b3af03df87114f5db7.json'
       }
     }
 
@@ -90,7 +67,7 @@ module.exports = {
         to: inputs.to,
         from: inputs.from,
     }, function(err, response) {
-      if(err) return exits.error(err);
+      if (err) return exits.error(err);
       return exits.success(response);
     });
 
