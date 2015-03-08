@@ -1,18 +1,31 @@
 module.exports = {
+
+
   friendlyName: 'Send message',
+
+
   description: 'Send a message using the Twilio API',
+
 
   inputs: {
 
     accountSid: {
       example: 'DZe5eafd3c69b1e74example5852c04a9102',
-      description: 'Your account SID Number located on your dashboard\'s main page.',
+      description: 'The "account sid" associated with your Twilio account.',
+      whereToGet: {
+        url: 'https://www.twilio.com/user/account/voice-messaging',
+        description: 'Visit your Twilio dashboard\'s main page. Click "Show API Credentials", then copy and paste your "ACCOUNT SID".'
+      },
       required: true
     },
 
     authToken: {
       example: 'Dafd4example5852c3c69bZe5e1e704a9102',
-      description: 'Your account Auth Token located on your dashboard\'s main page.',
+      description: 'The "auth token" associated with your Twilio account.',
+      whereToGet: {
+        url: 'https://www.twilio.com/user/account/voice-messaging',
+        description: 'Visit your Twilio dashboard\'s main page. Click "Show API Credentials", then copy and paste your "AUTH TOKEN".'
+      },
       required: true
     },
 
@@ -24,8 +37,8 @@ module.exports = {
 
     from: {
       example: '+16155551234',
-      description: 'This is the \'From\' phone number assigned to you from Twilio.',
-      required: true
+      description: 'This is the \'From\' phone number you\'d like to use to send the SMS.',
+      extendedDescription: 'This phone number is assigned to you by Twilio. If omitted, the first available number will be used.'
     },
 
     to: {
@@ -35,6 +48,8 @@ module.exports = {
     }
 
   },
+
+
 
   defaultExit: 'success',
 
@@ -58,6 +73,7 @@ module.exports = {
 
   },
 
+
   fn: function (inputs, exits) {
 
     var client = require('twilio')(inputs.accountSid, inputs.authToken);
@@ -72,5 +88,6 @@ module.exports = {
     });
 
   }
+
 
 };

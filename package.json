@@ -19,7 +19,9 @@
   "machinepack": {
     "machineDir": "machines",
     "machines": [
-      "send-message"
+      "send-message",
+      "list-phone-numbers",
+      "list-potential-numbers"
     ],
     "testsUrl": "https://travis-ci.org/mikermcneil/machinepack-twilio"
   },

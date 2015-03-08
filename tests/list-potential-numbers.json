@@ -1,0 +1,10 @@
+{
+  "machine": "list-potential-numbers",
+  "expectations": [
+    {
+      "todo": true,
+      "using": {},
+      "outcome": "success"
+    }
+  ]
+}
