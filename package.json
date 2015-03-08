@@ -1,25 +1,32 @@
-{  
-   "name":"machinepack-twilio",
-   "version":"0.0.1",
-   "description": "Interact with the Twilio API; buy numbers, release numbers, send messages, etc.",
-   "keywords": [
-      "machinepack",
-      "machines"
-   ],
-   "author":"Parker Agee",
-   "license":"MIT",
-   "dependencies":{  
-      "machine": "^1.2.0",
-      "twilio": "1.10.0"
-   },
-   "repository":{  
-      "type":"git",
-      "url":"https://github.com/parkeragee/machinepack-twilio"
-   },
-   "machinepack":{  
-      "machineDir":"machines",
-      "machines":[  
-        "send-message"
-      ]
-   }
+{
+  "name": "machinepack-twilio",
+  "version": "0.0.1",
+  "description": "Interact with the Twilio API; buy numbers, release numbers, send messages, etc.",
+  "keywords": [
+    "machinepack",
+    "machines"
+  ],
+  "author": "Parker Agee",
+  "license": "MIT",
+  "dependencies": {
+    "machine": "^4.0.0",
+    "twilio": "1.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mikermcneil/machinepack-twilio.git"
+  },
+  "machinepack": {
+    "machineDir": "machines",
+    "machines": [
+      "send-message"
+    ],
+    "testsUrl": "https://travis-ci.org/mikermcneil/machinepack-twilio"
+  },
+  "devDependencies": {
+    "test-machinepack-mocha": "^0.2.2"
+  },
+  "scripts": {
+    "test": "node ./node_modules/test-machinepack-mocha/bin/testmachinepack-mocha.js"
+  }
 }
