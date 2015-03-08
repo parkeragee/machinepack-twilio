@@ -46,7 +46,7 @@ module.exports = {
 
     success: {
       description: 'Done.',
-      // example: ['+15128459328']
+      example: ['+15128459328']
     },
 
   },
@@ -54,11 +54,18 @@ module.exports = {
 
   fn: function (inputs,exits) {
 
+    var _ = require('lodash');
     var client = require('twilio')(inputs.accountSid, inputs.authToken);
 
     client.incomingPhoneNumbers.list({}, function(err, response) {
       if (err) return exits.error(err);
-      return exits.success(response);
+      try {
+        var numbers = _.pluck(response.incomingPhoneNumbers, 'phone_number');
+        return exits.success(numbers);
+      }
+      catch (e) {
+        return exits.error(e);
+      }
     });
   },
 

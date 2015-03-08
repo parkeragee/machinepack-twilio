@@ -10,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "machine": "^4.0.0",
-    "twilio": "1.10.0"
+    "twilio": "1.10.0",
+    "lodash": "^3.4.0"
   },
   "repository": {
     "type": "git",
