@@ -83,6 +83,7 @@ module.exports = {
 
     var client = require('twilio')(inputs.accountSid, inputs.authToken);
     var listPhoneNumbers = require('machine').build(require('./list-phone-numbers'));
+    var listPotentialPhoneNumbers = require('machine').build(require('./list-potential-numbers'));
 
     // If no "from" number was provided, we'll look for one
     (function getFromNumber(exits){
@@ -98,15 +99,35 @@ module.exports = {
           return exits.error(err);
         },
         success: function (phoneNumbers){
-          if (phoneNumbers.length === 0) {
-            // TODO: if this turns up empty, attempt to procure
-            // a phone number using `list-potential-numbers` if necessary.
-            // then only bail out if THAT fails.
-            return exits.notFound();
+
+          // Use the first phone number associated w/ our account.
+          if (phoneNumbers.length > 0) {
+            return exits.success(phoneNumbers[0]);
           }
-          return exits.success(phoneNumbers[0]);
+
+          // If this turns up empty, attempt to procure
+          // a phone number using `list-potential-numbers` if necessary.
+          listPotentialPhoneNumbers({
+            accountSid: inputs.accountSid,
+            authToken: inputs.authToken
+          }).exec({
+            error: function (err){
+              return exits.error(err);
+            },
+            success: function (potentialPhoneNumbers){
+              // If there are no potential phone numbers, bail out.
+              if (phoneNumbers.length === 0) {
+                return exits.notFound();
+              }
+
+              // TODO:Try to acquire any one of them
+              // TODO:If that works, use it
+              // Otherwise bail out
+              return exits.notFound();
+            }
+          }); // </listPotentialPhoneNumbers>
         }
-      });
+      });// </listPhoneNumbers>
     })({
       error: function (err){
         return exits.error(err);
@@ -124,9 +145,9 @@ module.exports = {
           return exits.success(response);
         });
       }
-    });
+    });// </getFromPhoneNumber>
 
-  }
+  }// </fn>
 
 
 };
