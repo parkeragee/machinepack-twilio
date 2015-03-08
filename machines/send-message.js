@@ -61,14 +61,19 @@ module.exports = {
       void: true
     },
 
+    noPhoneNumbersAvailable: {
+      description: 'No sender ("From") phone numbers are available to your Twilio account.'
+    },
+
     success: {
-      description: 'Message sent successfully',
-      variableName: 'messageSent',
-      example:  {
-        sid: 'SM25e3fada288945b3af03df87114f5db7',
-        status: 'queued',
-        uri: '/2010-04-01/Accounts/Dafd4example5852c3c69bZe5e1e704a9102/Messages/SM25e3fada288945b3af03df87114f5db7.json'
-      }
+      description: 'Message sent successfully.',
+      void: true
+      // variableName: 'messageSent',
+      // example:  {
+      //   sid: 'SM25e3fada288945b3af03df87114f5db7',
+      //   status: 'queued',
+      //   uri: '/2010-04-01/Accounts/Dafd4example5852c3c69bZe5e1e704a9102/Messages/SM25e3fada288945b3af03df87114f5db7.json'
+      // }
     }
 
   },
@@ -77,14 +82,48 @@ module.exports = {
   fn: function (inputs, exits) {
 
     var client = require('twilio')(inputs.accountSid, inputs.authToken);
+    var listPhoneNumbers = require('machine').build(require('./list-phone-numbers'));
 
-    client.messages.create({
-        body: inputs.body,
-        to: inputs.to,
-        from: inputs.from,
-    }, function(err, response) {
-      if (err) return exits.error(err);
-      return exits.success(response);
+    // If no "from" number was provided, we'll look for one
+    (function getFromNumber(exits){
+      if (inputs.from) {
+        return exits.success(inputs.from);
+      }
+
+      listPhoneNumbers({
+        accountSid: inputs.accountSid,
+        authToken: inputs.authToken
+      }).exec({
+        error: function (err){
+          return exits.error(err);
+        },
+        success: function (phoneNumbers){
+          if (phoneNumbers.length === 0) {
+            // TODO: if this turns up empty, attempt to procure
+            // a phone number using `list-potential-numbers` if necessary.
+            // then only bail out if THAT fails.
+            return exits.notFound();
+          }
+          return exits.success(phoneNumbers[0]);
+        }
+      });
+    })({
+      error: function (err){
+        return exits.error(err);
+      },
+      notFound: function (){
+        return exits.noPhoneNumbersAvailable();
+      },
+      success: function (from){
+        client.messages.create({
+          body: inputs.body,
+          to: inputs.to,
+          from: from,
+        }, function(err, response) {
+          if (err) return exits.error(err);
+          return exits.success(response);
+        });
+      }
     });
 
   }
