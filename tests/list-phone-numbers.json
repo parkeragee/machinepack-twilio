@@ -1,0 +1,10 @@
+{
+  "machine": "list-phone-numbers",
+  "expectations": [
+    {
+      "todo": true,
+      "using": {},
+      "outcome": "success"
+    }
+  ]
+}
