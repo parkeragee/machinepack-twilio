@@ -24,6 +24,7 @@
       "list-phone-numbers",
       "list-potential-numbers"
     ],
+    "iconSrc": "https://s3-us-west-1.amazonaws.com/machinepack-icons/machinepack_twilio.png",
     "testsUrl": "https://travis-ci.org/parkeragee/machinepack-twilio"
   },
   "devDependencies": {
