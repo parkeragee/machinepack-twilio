@@ -31,8 +31,12 @@ module.exports = {
 
     body: {
       example: 'Example message',
-      description: 'This is the body of the message being sent',
-      required: true
+      description: 'This is the body of the message being sent'
+    },
+
+    mediaUrl: {
+      example: 'http://imgur.com/somePic.jpg',
+      description: 'This is the URL of an image to send'
     },
 
     from: {
@@ -65,6 +69,10 @@ module.exports = {
       description: 'No sender ("From") phone numbers are available to your Twilio account.'
     },
 
+    noBodyOrMediaSpecified: {
+      description: 'Either a "body" or "mediaUrl" (or both) must be specified'
+    },
+
     success: {
       description: 'Message sent successfully.',
       void: true
@@ -80,6 +88,11 @@ module.exports = {
 
 
   fn: function (inputs, exits) {
+
+    // Either body or mediaUrl (or both) must be present
+    if (!inputs.body && !inputs.mediaUrl) {
+      return exits.noBodyOrMediaSpecified();
+    }
 
     var client = require('twilio')(inputs.accountSid, inputs.authToken);
     var listPhoneNumbers = require('machine').build(require('./list-phone-numbers'));
@@ -136,11 +149,17 @@ module.exports = {
         return exits.noPhoneNumbersAvailable();
       },
       success: function (from){
-        client.messages.create({
-          body: inputs.body,
+        var message = {
           to: inputs.to,
-          from: from,
-        }, function(err, response) {
+          from: from
+        };
+        if (inputs.body) {
+          message.body = inputs.body;
+        }
+        if (inputs.mediaUrl) {
+          message.mediaUrl = inputs.mediaUrl;
+        }
+        client.messages.create(message, function(err, response) {
           if (err) return exits.error(err);
           return exits.success(response);
         });
